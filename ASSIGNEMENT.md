@@ -39,6 +39,8 @@ Finally, the customer currently has 3 environments, namely Development (DEV), Te
 
 The customer is interested in migrating the complete environment to a MicroServiced approach. They are not in a hurry, and they have given an indication that they want to go live on a Kubernetes setup 12 months after they have agreed on the vendor to support them in this journey. They want to make sure that they have enough time to adjust the application to any technology related changes originating from an infrastructure perspective.
 
+It is expected an increased number of access when the application goes live.
+
 #### Isolation
 
 Only the NodeJS application and the API are allowed to access the MongoDB instance.
@@ -49,6 +51,8 @@ The cronjob must access only the API application.
 There is a soft requirement for exporting all application and infrastructure logs to an ElasticSearch Cluster. The customer needs to have access to the Kibana dashboard within their headquarters but the cluster/dashboard *should not* be publicly accessible.
 
 The API application must answer on the same url as the nodejs application.
+
+Another soft requirement is having the API application running on 1 specific machine.
 
 There is a bug in the client's NodeJS application that expects a file being created at /opt/node_reporting_bug/gambiarra.md before the NodeJS application starts. The file must contain the value ("The greatest teacher") of a secret (node-gambi) and the phrase "failure is." in order to the NodeJS app to start.
 
