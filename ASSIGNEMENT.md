@@ -29,6 +29,26 @@ Please be aware of the fact that we are not only looking at the actual deliverab
 
 You will need to make a choice of delivering your solution in either **Amazon EKS**, **Microsoft Azure Kubernetes Services (AKS)** or in your **local kubernetes cluster**.
 
+## Before You Start
+
+The assessment aims to mimic a day-to-day scenario that you will be in constant contact.
+Therefore, the assessment is focused to provide visibility over your skills regarding Kubernetes and manipulating applications within it, not developing applications.
+
+We would like to see your decisions and thoughts. For this reason, no "already existent" environment is provided.
+The ability to transform a request into a solution is valuable and we would like to see this from you.
+
+Each one of us has different backgrounds and skills. Having this in mind, the below section aims to explain a little bit more about what is not needed by you, but can be done if you would like to.
+
+### You DO NOT NEED TO:
+* Develop application code (scripts to run within cronjob) -> Instead, you can rely on a dummy linux image.
+* Develop application code (NodeJS) -> Instead, you can use a blank NodeJS image.
+* Develop application code (API) -> Instead, you can use a dummy webserver image.
+
+You do not have the responsibility of developing application code.
+However, the images used within the pods must offer the functionalities. 
+**Example:**
+API pod -> web-server image based (offer web server functionality -> http ports).
+
 ## Assignment
 
 ### Transformation and Migration to MicroServices
@@ -36,7 +56,7 @@ You will need to make a choice of delivering your solution in either **Amazon EK
 You have participated in a meeting with a client to assess their strategy to migrate their application to MicroServiced approach. They are currently hosting a customer facing web application on their on premise environment based on a NodeJS application behind an NGINX reverse proxy. They are utilizing a MongoDB cluster for storing data as well as an FTP server for their web pages files/code. They also maintain a cron server, mostly Bash and Python scripts, relevant to a small amount of jobs that needs to be executed a few times per day (no more than once per hour). Additionally, the client is developing a brand new API, and would like to host it on the new setup.
 All the above services are hosted on several virtual machines at the client's OnPremises datacenter.
 
-Finally, the customer currently has 3 environments, namely Development (DEV), Test (TST) and Production (PRD).
+Finally, the customer currently has 2 environments, namely Development (DEV) and Test (TST).
 
 The customer is interested in migrating the complete environment to a MicroServiced approach. They are not in a hurry, and they have given an indication that they want to go live on a Kubernetes setup 12 months after they have agreed on the vendor to support them in this journey. They want to make sure that they have enough time to adjust the application to any technology related changes originating from an infrastructure perspective.
 
