@@ -18,6 +18,7 @@ It's an important choice because has to be made cautiously and together with the
   5. What is his RPO and RTO?
   6. What kind of monitoring system he has at this moment, does the customer counts SLO (service level objective)?
 
+
 3.
 
 > some questions about existing application
