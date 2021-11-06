@@ -1,0 +1,45 @@
+Some decicions about architecture/design:
+
+Tools
+- CloudFormation + some scripts used for deployment infra
+  main reasons
+    - easier/faster to debug that CDK,
+    - more straightforward, avoid unnecessary layer and some restrictions
+    - personal previous experience with CF
+
+Component's view:
+  EKS per environment:
+    - mondodb deployed in a separate namespace (via helm)
+    - ELK deployed to a separate namespace (helm)   
+    - namespace app:
+      - nodejs application - separate pod
+      - new api (application) - separate pod
+      - cron job - separate pod or k8s cronjob
+
+Network layout (per env):
+  2 private networks (requirements for AWS EKS)
+  - exgress (via ALB ? - todo check the recommended practices)
+
+Network rules (whitelist):
+  nodejsapp -> mongodb
+  newapi -> mongodb
+  cron -> newapi
+
+  > The client also asked as a must the configuration of an account within kubernetes that has permissions to read pods and delete services only within the mongodb perimeter. The access to use this account must be noted in your evaluation document.
+  make an account for mongodb namespace in EKS ?
+
+CI/CD (for nodejs/cron/new api):
+   - AWS CodeCommit/AWS CodeBuild, via AWS container registry
+
+CI/CD/testing for infra: - automation will be executed manually via aws cloudshell
+
+Other notes:
+  - network isolation via CNI
+  - PKI for ELK ? (skip for now)
+  - secret management - AWS Secret Manager ? https://docs.aws.amazon.com/eks/latest/userguide/manage-secrets.html
+  - separation between environments for the end user's perspective
+  - single application setup - see here https://kubernetes.io/docs/tasks/run-application/run-single-instance-stateful-application/
+  - > There is a soft requirement for exporting all application and infrastructure logs to an ElasticSearch Cluster. The customer needs to have access to the Kibana dashboard within their headquarters but the cluster/dashboard *should not* be publicly accessible.
+    will be restricted via IP address (via ALB?)
+
+
