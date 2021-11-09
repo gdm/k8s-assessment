@@ -43,3 +43,19 @@ Other notes:
     will be restricted via IP address (via ALB?)
 
 
+
+Some reference architectures from AWS:
+
+  Modular and Scalable Amazon EKS Architecture: https://aws.amazon.com/quickstart/architecture/amazon-eks/
+                                                https://aws-quickstart.github.io/quickstart-amazon-eks/
+
+  Install SSM Agent on Amazon EKS worker nodes by using Kubernetes DaemonSet
+    https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/install-ssm-agent-on-amazon-eks-worker-nodes-by-using-kubernetes-daemonset.html?did=pg_card&trk=pg_card
+
+  Run stateful workloads with persistent data storage by using Amazon EFS on Amazon EKS with AWS Fargate
+    https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/run-stateful-workloads-with-persistent-data-storage-by-using-amazon-efs-on-amazon-eks-with-aws-fargate.html?did=pg_card&trk=pg_card
+
+  Automatically build and deploy a Java application to Amazon EKS using a CI/CD pipeline
+    https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/automatically-build-and-deploy-a-java-application-to-amazon-eks-using-a-ci-cd-pipeline.html?did=pg_card&trk=pg_card
+
+  
