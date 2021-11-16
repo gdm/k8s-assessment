@@ -1,0 +1,30 @@
+
+
+EKS - via quick start with calico network roles
+
+1. Launch mongodb helm (done) + generate secrets for connect
+
+todo 2. Launch nodejs pod which can connect to mongodb and expose web interface (+ test exgress nginx use the same hostname for api and new app)
+   exgres how to for EKS https://docs.bitnami.com/kubernetes/get-started-eks/  
+   export SERVICE_IP=$(kubectl get svc RELEASE-NAME -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' --namespace default)
+   echo Hostname: http://$SERVICE_IP
+
+   Nodejs + mongodb https://zellwk.com/blog/crud-express-mongodb/
+
+todo 3. Launch nodejs newapi which can connect to mongodb shared via secret + generate secrets for connect via cron jobs
+todo 4. cron job which can access to the nodejs newapi (via kubernetes service)
+todo 5: isolation via network rules (Calico CNI)
+todo 6: create k8s account for access only read only pods + setup kubectl for another account in bastion host
+  Instruction : here https://helm.sh/docs/topics/rbac/
+
+todo 7: workaround for nodejs application 'bug' - create file on startup (use init container in pod)
+todo 8: logs to ELK/OpenSearch : https://www.magalix.com/blog/kubernetes-observability-log-aggregation-using-elk-stack or using helm
+
+
+Extra tasks done
+  - made test for mongodb using nodejs https://github.com/gdm/mongotest , learned some basics about mongodb + nodejs integration
+  - made docker image using github actions (CI) + push to dockerhub
+  - registered in https://account.mongodb.com/ (free external mongodb for testing)
+  - review bitnami helm charts, read best practices for helm
+  - tried to execute opensearch (fork of ElasticSearch because of recent license change), submitted PR https://github.com/opensearch-project/helm-charts/pull/139
+

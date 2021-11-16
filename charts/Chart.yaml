@@ -1,0 +1,7 @@
+apiVersion: v2
+name: sentia-chart
+description: A Helm chart for Sentia assessment
+...
+dependencies:
+  - name: mongodb
+  - name: elasticsearch

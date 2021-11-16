@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CI-CD Resources
+
+Resources:
+  OldAppECR: 
+    Type: AWS::ECR::Repository
+    Properties: 
+      RepositoryPolicyText: 
+        Version: "2012-10-17"
+        Statement: 
+          - 
+            Sid: AllowPushPull
+            Effect: Allow
+            Principal: 
+              AWS: 
+                - "arn:aws:iam::298662177640:user/dmgo"
+            Action: 
+              - "ecr:GetDownloadUrlForLayer"
+              - "ecr:BatchGetImage"
+              - "ecr:BatchCheckLayerAvailability"
+              - "ecr:PutImage"
+              - "ecr:InitiateLayerUpload"
+              - "ecr:UploadLayerPart"
+              - "ecr:CompleteLayerUpload" 
+
+  OldAppRepo:
+    Type: AWS::CodeCommit::Repository
+    Properties:
+      RepositoryName: OldAppRepo
+      RepositoryDescription: This is a repository for my old app
+
+Outputs:
+  OldAppECRName:
+    Value: !Ref OldAppECR
+  OldAppECR:
+    Value: !GetAtt OldAppECR.RepositoryUri
+  OldAppRepoSSH:
+    Value: !GetAtt OldAppRepo.CloneUrlSsh
+  OldAppRepoArn:
+    Value: !GetAtt OldAppRepo.Arn

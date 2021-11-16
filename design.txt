@@ -43,7 +43,6 @@ Other notes:
     will be restricted via IP address (via ALB?)
 
 
-
 Some reference architectures from AWS:
 
   Modular and Scalable Amazon EKS Architecture: https://aws.amazon.com/quickstart/architecture/amazon-eks/
