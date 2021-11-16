@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: filebeat-configmap
+data:
+  filebeat.yml: |
+    filebeat:
+      config:
+        modules:
+          path: /usr/share/filebeat/modules.d/*.yml
+          reload:
+            enabled: true
+      inputs:
+      - type: log
+        enabled: true
+        paths:
+          - "/var/log/nodeapp/application.log"
+    output:
+      elasticsearch:
+        hosts: ["elasticsearch:9200"]
+        

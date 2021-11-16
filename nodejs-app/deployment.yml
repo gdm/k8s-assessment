@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-app
+  labels:
+    app: nodejs-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-pod
+  template:
+    metadata:
+      name: nodejs-pod
+      labels:
+        app: nodejs-pod
+    spec:
+      containers:
+        - name: mongotest
+          image: dmytrogorbunov/mongotest:latest
+          env:
+            - name: MONGODB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets
+                  key: MONGODB_URL
+            - name: MONGODB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets
+                  key: MONGODB_USER
+            - name: MONGODB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets
+                  key: MONGODB_PASS
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: node-logs
+              mountPath: /var/log/nodeapp/
+
+        - name: filebeat-sidecar
+          image: docker.elastic.co/beats/filebeat:7.15.2
+          volumeMounts:
+            - name: node-logs
+              mountPath: /var/log/nodeapp/
+            - name: filebeat-config
+              mountPath: /usr/share/filebeat/filebeat.yml
+              subPath: filebeat.yml 
+      volumes:
+        - name: node-logs
+        - name: filebeat-config
+          configMap:
+            name: filebeat-configmap
+            items:
+              - key: filebeat.yml
+                path: filebeat.yml
