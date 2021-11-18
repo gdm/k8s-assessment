@@ -3,14 +3,22 @@ kind: Ingress
 metadata:
   name: demo-ingress
 spec:
+  defaultBackend:
+    service:
+      name: hostname-svc
+      port:
+        number: 80
+
+  ingressClassName: nginx
+
   rules:
   - host: test.host.com
     http:
       paths:
-      - path: /
+      - path: /test
         pathType: Prefix
         backend:
           service:
-            name: nodejs-service
+            name: nodejs-svc
             port:
               number: 80

@@ -13,9 +13,13 @@ todo 2. Launch nodejs pod which can connect to mongodb and expose web interface 
    HOW to provide exeternal access to EKS resources (using nginx ingress, very old) 
      https://aws.amazon.com/premiumsupport/knowledge-center/eks-access-kubernetes-services/
    Newer version: https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-helm/
+                  https://kubernetes.github.io/ingress-nginx/user-guide/basic-usage/
 
    How to test (after following instructions above):
      curl -H "Host: hostname.mydomain.com" http://aeae32d1590cd4119bac4f98d852cd72-1400023447.eu-central-1.elb.amazonaws.com/
+     kubectl run -i --tty busybox --image=busybox --restart=Never -- sh
+     kubectl get pods --selector=app=nodejs-app
+     kubectl port-forward my-pod 8000:8000
 
 todo 3. Launch nodejs newapi which can connect to mongodb shared via secret + generate secrets for connect via cron jobs
 todo 4. cron job which can access to the nodejs newapi (via kubernetes service)
@@ -25,7 +29,6 @@ todo 6: create k8s account for access only read only pods + setup kubectl for an
 
 todo 7: workaround for nodejs application 'bug' - create file on startup (use init container in pod)
 todo 8: logs to ELK/OpenSearch : https://www.magalix.com/blog/kubernetes-observability-log-aggregation-using-elk-stack or using helm
-
 
 Extra tasks done
   - made test for mongodb using nodejs https://github.com/gdm/mongotest , learned some basics about mongodb + nodejs integration

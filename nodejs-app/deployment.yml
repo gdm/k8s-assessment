@@ -2,18 +2,15 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nodejs-app
-  labels:
-    app: nodejs-app
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: nodejs-pod
+      app: nodejs-app
   template:
     metadata:
-      name: nodejs-pod
       labels:
-        app: nodejs-pod
+        app: nodejs-app
     spec:
       containers:
         - name: mongotest
