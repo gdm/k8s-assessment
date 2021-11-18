@@ -3,6 +3,17 @@
 EKS - via quick start with calico network roles
 
 1. Launch mongodb helm (done) + generate secrets for connect
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm install mongo-release bitnami/mongodb -f mongo_values.yaml
+
+u1: export MONGODB_PASSWORD=$(kubectl get secret --namespace default mongo-release-mongodb -o jsonpath="{.data.mongodb-passwords}" | base64 --decode | awk -F',' '{print $1}')
+mongo-release-mongodb.default.svc.cluster.local
+
+echo -n 'mongodb://u1:p1thnth@mongo-release-mongodb.default.svc.cluster.local/db1' | base64 -w0 ; echo
+
+  Not working(unknown reason):
+  export MONGODB_ROOT_PASSWORD=$(kubectl get secret --namespace default mongo-release-mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 --decode)
+  echo -n 'mongodb://admin:${MONGODB_ROOT_PASSWORD}@mongo-release-mongodb:27017/admin?compressors=none' | base64 >> secret-local.yaml
 
 todo 2. Launch nodejs pod which can connect to mongodb and expose web interface (+ test exgress nginx use the same hostname for api and new app)
    exgres how to for EKS https://docs.bitnami.com/kubernetes/get-started-eks/  
@@ -23,6 +34,7 @@ todo 2. Launch nodejs pod which can connect to mongodb and expose web interface 
 
 todo 3. Launch nodejs newapi which can connect to mongodb shared via secret + generate secrets for connect via cron jobs
 todo 4. cron job which can access to the nodejs newapi (via kubernetes service)
+
 todo 5: isolation via network rules (Calico CNI)
 todo 6: create k8s account for access only read only pods + setup kubectl for another account in bastion host
   Instruction : here https://helm.sh/docs/topics/rbac/
@@ -37,3 +49,11 @@ Extra tasks done
   - review bitnami helm charts, read best practices for helm
   - tried to execute opensearch (fork of ElasticSearch because of recent license change), submitted PR https://github.com/opensearch-project/helm-charts/pull/139
 
+
+Supply chain:
+ bitnami - charts, docker images
+ nodejsapplication - base image docker, public nmp modules ->Github->dockerhub
+ EKS setup - Calico CNI, their docker images
+ nginx ingress - their docker images
+
+External services (usefully for debug): mongodb.com

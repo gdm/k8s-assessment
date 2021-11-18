@@ -1,0 +1,5 @@
+---
+auth:
+  usernames: [ 'u1' ]
+  passwords: [ 'p1thnth' ]
+  databases: [ 'db1', 'db2' ]

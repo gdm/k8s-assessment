@@ -1,0 +1,11 @@
+
+
+1. Design picture (from Amazon Quick Start)
+   Choices which has been made with reasons.
+
+2. Setup process
+   2.1 - CF
+   2.2 - nginx ingress setup
+   2.2 - mongodb (helm)
+   2.3 - elk (helm)
+   2.4 - application (helm)
