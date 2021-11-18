@@ -50,6 +50,7 @@ spec:
               subPath: filebeat.yml 
       volumes:
         - name: node-logs
+          emptyDir: {}
         - name: filebeat-config
           configMap:
             name: filebeat-configmap

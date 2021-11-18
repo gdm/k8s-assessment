@@ -10,7 +10,10 @@ todo 2. Launch nodejs pod which can connect to mongodb and expose web interface 
    echo Hostname: http://$SERVICE_IP
 
    Nodejs + mongodb https://zellwk.com/blog/crud-express-mongodb/
-   HOW to provide exeternal access to EKS resources (using nginx ingress) https://aws.amazon.com/premiumsupport/knowledge-center/eks-access-kubernetes-services/
+   HOW to provide exeternal access to EKS resources (using nginx ingress, very old) 
+     https://aws.amazon.com/premiumsupport/knowledge-center/eks-access-kubernetes-services/
+   Newer version: https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-helm/
+
    How to test (after following instructions above):
      curl -H "Host: hostname.mydomain.com" http://aeae32d1590cd4119bac4f98d852cd72-1400023447.eu-central-1.elb.amazonaws.com/
 
