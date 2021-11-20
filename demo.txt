@@ -4,8 +4,38 @@
    Choices which has been made with reasons.
 
 2. Setup process
-   2.1 - CF
+   2.1 - Launch CF, wait for completion (Calico must be turned on for network policies)
+
    2.2 - nginx ingress setup
+    git clone https://github.com/nginxinc/kubernetes-ingress/
+    cd kubernetes-ingress/deployments/helm-chart
+    git checkout v2.0.3
+    helm install nginx-release1 .
+    k get svc
+
+
    2.2 - mongodb (helm)
+     helm repo add bitnami https://charts.bitnami.com/bitnami
+     cd 
+     git clone https://github.com/gdm/k8s-assessment.git
+     cd k8s-assessment/charts # note: link te default values for mongo chart https://artifacthub.io/packages/helm/bitnami/mongodb
+     helm install mongo-release-1 bitnami/mongodb -f mongo-values.yaml
+     export MONGODB_ROOT_PASSWORD=$(kubectl get secret --namespace default mongo-release-1-mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 --decode)
+
+     create new db using instruction in chart , commands to create use mynewdb; db.user.insert({name: "Ada Lovelace", age: 205})
+     
+
    2.3 - elk (helm)
-   2.4 - application (helm)
+     helm install my-release bitnami/elasticsearch -f values.yaml
+
+   
+   2.4 - application (helm) + ingress
+     todo: automate using helm part below
+     cd nodejs-app
+     k apply -f filebeat-configmap.yml
+     export MONGODB_ROOT_PASSWORD=$(kubectl get secret --namespace default mongo-release-1-mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 --decode)
+     export MONGOURL=$(echo -n "mongodb://root:${MONGODB_ROOT_PASSWORD}@mongo-release-1-mongodb.default.svc.cluster.local/" | base64 -w0)
+     sed -i "s|MONGODB_URL: change_me|MONGODB_URL: $MONGOURL|" secret.yml
+     k apply -f hostname-deployments.yml
+     k apply -f secret.yml
+     k apply -f deployment.yml

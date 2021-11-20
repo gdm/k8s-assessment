@@ -17,5 +17,5 @@ data:
           - "/var/log/nodeapp/application.log"
     output:
       elasticsearch:
-        hosts: ["elasticsearch:9200"]
+        hosts: ["my-release-elasticsearch-master:9200"]
         
