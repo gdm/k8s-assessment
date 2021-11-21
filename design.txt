@@ -18,7 +18,7 @@ Component's view:
 
 Network layout (per env):
   2 private networks (requirements for AWS EKS)
-  - exgress (via ALB ? - todo check the recommended practices)
+  - ingress (via ELB, nginx ingress)
 
 Network rules (whitelist):
   nodejsapp -> mongodb

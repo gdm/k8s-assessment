@@ -45,9 +45,11 @@ spec:
             - name: filebeat-config
               mountPath: /usr/share/filebeat/filebeat.yml
               subPath: filebeat.yml 
+
       volumes:
         - name: node-logs
           emptyDir: {}
+
         - name: filebeat-config
           configMap:
             name: filebeat-configmap

@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: newapi
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      app: new-api-app
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          type: cronjob
+    - podSelector:
+        matchLabels:
+          app: nginx-release1-nginx-ingress

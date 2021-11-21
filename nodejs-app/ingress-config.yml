@@ -22,6 +22,15 @@ spec:
             name: nodejs-svc
             port:
               number: 80
+
+      - path: /newapi
+        pathType: Prefix
+        backend:
+          service:
+            name: newapi-svc
+            port:
+              number: 80
+
   - host: ac95cbc15ae634757ace46f5b3cab18e-1147114267.eu-central-1.elb.amazonaws.com
     http:
       paths:

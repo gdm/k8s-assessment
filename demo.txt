@@ -1,4 +1,4 @@
-
+## Live demo
 
 1. Design picture (from Amazon Quick Start)
    Choices which has been made with reasons.
@@ -27,7 +27,6 @@
 
    2.3 - elk (helm)
      helm install my-release bitnami/elasticsearch -f values.yaml
-
    
    2.4 - application (helm) + ingress
      todo: automate using helm part below
@@ -39,3 +38,40 @@
      k apply -f hostname-deployments.yml
      k apply -f secret.yml
      k apply -f deployment.yml
+     k apply -f service.yml
+     # endit and apply ingress, test application
+
+   2.5 Setup new api
+     (cat deployment.yml ; echo "---"; cat service.yml ) | sed 's/nodejs-app/new-api-app/g; s/nodejs-svc/newapi-svc/g'  > newapi.yml
+     k apply -f newapi.yml
+     # edit and apply new ingress (add /newapi endpoint)
+
+   2.6 Apply network rules  (together with testing)
+     k apply -f network-policy-deny-all-ingress-by-default.yml
+     # make sure that endpoints aren't functional
+     k delete networkpolicy default-deny-ingress
+     k apply -f network-policy-mongodb.yml # allow only one application
+
+   2.7 Setup cron job
+     k apply -f network-policy-new-api.yml
+
+
+   2.8 Workaround for 'bug'
+     note1: better do it on Dockerfile level
+     note2: use initContainer  (https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-initialization/)
+ initContainers:
+  - name: install
+    image: busybox
+    env:
+			- name: NODE_GAMBI
+			  valueFrom:
+          secretKeyRef:
+            name: appsecrets
+            key: node-gambi
+    command:
+    - bash
+    - "-c"
+    - 'echo "${NODE_GAMBI} failure is." > /opt/node_reporting_bug/gambiarra.md; chmod 0666 /opt/node_reporting_bug/gambiarra.md'
+    volumeMounts:
+    - name: bugdir
+      mountPath: "/opt/node_reporting_bug/"
