@@ -1,0 +1,12 @@
+
+aws ec2 describe-images --executable-users self
+aws ec2 describe-images --executable-users selfaws ec2 describe-images --executable-users self
+jq '.Images[] | select (.Architecture == "arm64")'
+jq '.Images[] | select (.Architecture == "arm64") | select (.ImageLocation |startswith("amazon/amzn2"))' aws.json  | vi -
+select(.CreationDate > "2021-12")
+jq '.Images[] | select (.Architecture == "arm64") | select (.ImageLocation |startswith("amazon/amzn2")) | select(.CreationDate > "2021-12")' aws.json  | vi -
+jq '.Images[] | select (.Architecture == "arm64") | select (.ImageLocation |startswith("amazon/amzn2")) | select(.CreationDate > "2022-01-20")' aws.json  | vi -
+
+aws ec2 describe-images --owners self amazon > aws.json
+
+# ami-06d8dc7de2805917d  Amazon Linux 2 SELinux Enforcing AMI 2.0.20220121.0 arm64 Minimal HVM gp2 

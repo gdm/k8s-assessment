@@ -57,4 +57,7 @@ Some reference architectures from AWS:
   Automatically build and deploy a Java application to Amazon EKS using a CI/CD pipeline
     https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/automatically-build-and-deploy-a-java-application-to-amazon-eks-using-a-ci-cd-pipeline.html?did=pg_card&trk=pg_card
 
-  
+
+Notes about cost optimization:
+1. Use NAT instances or switch to IPV6
+2. Use Spot or reserved instances

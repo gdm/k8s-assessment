@@ -55,7 +55,6 @@
    2.7 Setup cron job
      k apply -f network-policy-new-api.yml
 
-
    2.8 Workaround for 'bug'
      note1: better do it on Dockerfile level
      note2: use initContainer  (https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-initialization/)
