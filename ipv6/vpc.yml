@@ -6,6 +6,9 @@ Parameters:
     Type: String
     Default: 0.0.0.0/0
     ConstraintDescription: must be a valid IP CIDR range of the form x.x.x.x/x.
+  ALLOWSSHACCESSIPV6:
+    Description: An IPV6 address range
+    Type: String
   AZ1:
     Description: Availability zone1
     Type: String
@@ -143,6 +146,20 @@ Resources:
       Egress: 'false'
       CidrBlock:
         Ref: ALLOWSSHACCESS
+      PortRange:
+        From: '22'
+        To: '22'
+
+  InboundNetworkAclEntryAllowSSHFromIPv6:
+    Type: AWS::EC2::NetworkAclEntry
+    Properties:
+      NetworkAclId:
+        Ref: PublicNetworkAcl
+      RuleNumber: '1106'
+      Protocol: '6'
+      RuleAction: allow
+      Egress: 'false'
+      Ipv6CidrBlock: !Ref ALLOWSSHACCESSIPV6
       PortRange:
         From: '22'
         To: '22'
@@ -488,6 +505,10 @@ Resources:
         FromPort: '22'
         ToPort: '22'
         CidrIp: !Ref ALLOWSSHACCESS
+      - IpProtocol: tcp
+        FromPort: '22'
+        ToPort: '22'
+        CidrIpv6: !Ref ALLOWSSHACCESSIPV6
       - IpProtocol: tcp
         FromPort: '80'
         ToPort: '80'
