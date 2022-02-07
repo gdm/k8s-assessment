@@ -33,7 +33,7 @@ template = Template("""{
       "DeviceIndex": 0,
       "SubnetId" : "{{ subnet_id }}",
       "Groups"   : [ "{{ security_group_id }}" ],
-      "AssociatePublicIpAddress": false,
+      "AssociatePublicIpAddress": true,
       "Ipv6AddressCount": 2
     }
   ]
